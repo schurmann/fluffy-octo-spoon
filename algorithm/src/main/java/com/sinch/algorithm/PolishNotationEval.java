@@ -23,32 +23,32 @@ import java.util.NoSuchElementException;
  * Created by Jonathan Schurmann on 11/7/20.
  */
 public class PolishNotationEval implements InputReader<List<String>> {
-    private static DecimalFormat df = new DecimalFormat("0.00");
-    private static final Map<String, Operation<Float>> SUPPORTED_OPERATIONS = Map.of(
+    private static final DecimalFormat df = new DecimalFormat("##.00");
+    private static final Map<String, Operation<Double>> SUPPORTED_OPERATIONS = Map.of(
             "+", new Addition(),
             "-", new Subtraction(),
             "*", new Multiplication(),
             "/", new Division());
 
 
-    public float solve(String expression) throws PolishNotationException {
+    public String solve(String expression) throws PolishNotationException {
         String[] tokens = expression.split(" ");
-        Deque<Float> operands = new ArrayDeque<>();
+        Deque<Double> operands = new ArrayDeque<>();
 
         for (int i = tokens.length - 1; i >= 0; i--) {
             String token = tokens[i];
-            Operation<Float> operation = SUPPORTED_OPERATIONS.get(token);
+            Operation<Double> operation = SUPPORTED_OPERATIONS.get(token);
             if (operation != null) {
                 try {
-                    float op1 = operands.pop();
-                    float op2 = operands.pop();
+                    double op1 = operands.pop();
+                    double op2 = operands.pop();
                     operands.push(operation.op(op1, op2));
                 } catch (NoSuchElementException e) {
                     throw new PolishNotationException("Invalid input: " + expression);
                 }
             } else {
                 try {
-                    operands.push(Float.parseFloat(token));
+                    operands.push(Double.parseDouble(token));
                 } catch (NumberFormatException | NullPointerException e) {
                     throw new PolishNotationException(String.format("Invalid token: %s", token), e);
                 }
@@ -57,7 +57,7 @@ public class PolishNotationEval implements InputReader<List<String>> {
         if (operands.size() > 1) {
             throw new PolishNotationException("Invalid input: " + expression);
         }
-        return Float.parseFloat(df.format(operands.pop()));
+        return df.format(operands.pop());
     }
 
     @Override

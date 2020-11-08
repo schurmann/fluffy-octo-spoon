@@ -24,7 +24,7 @@ public class PolishNotationRestService {
     }
 
     @GetMapping("/eval")
-    public List<Float> evalutePolishNotation(@RequestParam(value = "expression") List<String> expressions) {
+    public List<String> evalutePolishNotation(@RequestParam(value = "expression") List<String> expressions) {
         PolishNotationEval notationEval = new PolishNotationEval();
         return expressions.stream().map(s -> {
                     try {

@@ -24,9 +24,9 @@ class RestApplicationTests {
 
     @Test
     public void shouldReturnResponse() {
-        List<Float> response = restService.evalutePolishNotation(List.of("+ 1 2"));
+        List<String> response = restService.evalutePolishNotation(List.of("+ 1 2"));
         assertEquals(1, response.size());
-        assertEquals(3, response.get(0));
+        assertEquals("3.00", response.get(0));
     }
 
     @Test

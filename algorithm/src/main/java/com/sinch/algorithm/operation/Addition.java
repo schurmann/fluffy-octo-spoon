@@ -3,9 +3,9 @@ package com.sinch.algorithm.operation;
 /**
  * Created by Jonathan Schurmann on 11/7/20.
  */
-public class Addition implements Operation<Float> {
+public class Addition implements Operation<Double> {
     @Override
-    public Float op(Float op1, Float op2) {
+    public Double op(Double op1, Double op2) {
         return op1 + op2;
     }
 }

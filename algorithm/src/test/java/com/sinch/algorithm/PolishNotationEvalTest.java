@@ -23,10 +23,10 @@ class PolishNotationEvalTest {
 
     private static Stream<Arguments> validInput() {
         return Stream.of(
-                Arguments.of(42, "+ + 0.5 1.5 * 4 10"),
-                Arguments.of(1337, "- 2e3 - 700 + 7 * 2 15"),
-                Arguments.of(-12.50f, "- -1.5 * 3.1415 / -7 -2"),
-                Arguments.of(100500, "100500")
+                Arguments.of("42.00", "+ + 0.5 1.5 * 4 10"),
+                Arguments.of("1337.00", "- 2e3 - 700 + 7 * 2 15"),
+                Arguments.of("-12.50", "- -1.5 * 3.1415 / -7 -2"),
+                Arguments.of("100500.00", "100500")
         );
     }
 
@@ -39,8 +39,8 @@ class PolishNotationEvalTest {
 
     @ParameterizedTest
     @MethodSource("validInput")
-    void shouldSolveInput(float expected, String expression) {
-        float result = notationEval.solve(expression);
+    void shouldSolveInput(String expected, String expression) {
+        String result = notationEval.solve(expression);
         assertEquals(expected, result);
     }
 
